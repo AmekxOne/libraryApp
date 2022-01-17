@@ -114,8 +114,5 @@ input:focus{
     border-radius: 5px;
     color: #393b44;
     font-weight: 600;
-}
-
-.removeBtn::before{
-    content: "Remove";
+    cursor: pointer;
 }

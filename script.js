@@ -1,17 +1,4 @@
-let myLibrary = [
-    {
-        title: "book",
-        author: "obama",
-        pages: "123",
-        finished: true
-    },
-    {
-        title: "harry",
-        author: "potter",
-        pages: "456",
-        finished: true
-    }
-]
+let myLibrary = [];
 
 function Book(title, author, pages, finished) {
   this.title = title;
@@ -20,17 +7,35 @@ function Book(title, author, pages, finished) {
   this.finished = finished;
 }
 
+function getIndexOfClickedBook(){
+
+    let allDeleteButtons = document.querySelectorAll(".removeBtn");
+
+    for(let i=0; i<allDeleteButtons.length; i++){
+        allDeleteButtons[i].addEventListener("click", function(){
+            console.log(this);
+        });
+        break;
+    }
+
+    
+   
+}
+
+
+
 function addBookToLibrary() {
     let title = document.querySelector("#title");
     let author = document.querySelector("#author");
     let pages = document.querySelector("#pages");
-    
+    let finished = document.querySelector("#finished");
+
     let errorField = document.querySelector("#errorField");
 
     let testButton = document.querySelector("#testButton");
     
     testButton.addEventListener("click", function(){
-        let finished = document.querySelector("#finished");
+        
 
         //check if title is empty
         if(title.value === "" || title.value == null){
@@ -65,7 +70,6 @@ function addBookToLibrary() {
             errorField.textContent = "";
             myLibrary.push(new Book(title.value, author.value, pages.value, true));
 
-            
             let libraryDisplay = document.querySelector("#libraryDisplay");
         
             let bookElement = document.createElement("div");
@@ -86,30 +90,24 @@ function addBookToLibrary() {
 
             let deleteBookBtn = document.createElement("button");
             deleteBookBtn.classList.add("removeBtn");
-            deleteBookBtn.setAttribute("onclick", "deleteBook();");
-            
+            deleteBookBtn.innerText = "test";
+            deleteBookBtn.setAttribute("bookId", myLibrary.length-1);
+            //deleteBookBtn.setAttribute("onclick", "deleteBook();");
+
             libraryDisplay.appendChild(bookElement);
             bookElement.append(bookTitle, bookAuthor, bookPages, bookReadBtn, deleteBookBtn);
-            }
             
+            }
         } 
-
+        getIndexOfClickedBook();
     });
-}
 
-function deleteBook () {
-    //this needs to be done without a for loop
-    let testowanie = document.querySelectorAll(".removeBtn");
     
-    for(let i=0; i<testowanie.length; i++){
-        testowanie[i].addEventListener("click", function(){
-            this.parentNode.remove();
-        });
-    }
 }
 
 addBookToLibrary();
-deleteBook ();
+
+
 
 let userInput = document.querySelector("#userInput");
 let addBookBtn = document.querySelector("#addBook");
@@ -117,7 +115,3 @@ let addBookBtn = document.querySelector("#addBook");
 addBookBtn.addEventListener("click", function(){
     userInput.classList.toggle("hidden");
 });
-
-
-//1. Push user input as object into the 'myLibrary' array
-//2. At the same time add the object to the display
