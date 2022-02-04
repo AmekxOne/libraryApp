@@ -7,20 +7,7 @@ function Book(title, author, pages, finished) {
   this.finished = finished;
 }
 
-function getIndexOfClickedBook(){
 
-    let allDeleteButtons = document.querySelectorAll(".removeBtn");
-
-    for(let i=0; i<allDeleteButtons.length; i++){
-        allDeleteButtons[i].addEventListener("click", function(){
-            console.log(this);
-        });
-        break;
-    }
-
-    
-   
-}
 
 
 
@@ -33,7 +20,7 @@ function addBookToLibrary() {
     let errorField = document.querySelector("#errorField");
 
     let testButton = document.querySelector("#testButton");
-    
+
     testButton.addEventListener("click", function(){
         
 
@@ -85,27 +72,35 @@ function addBookToLibrary() {
             let bookPages = document.createElement("p");
             bookPages.innerText = pages.value;
 
+            let bookRead = document.createElement("p");
+            if(finished.checked){
+                bookRead.innerText = "Finished reading";
+            } else {
+                bookRead.innerText = "Still reading";
+            }
+
             let bookReadBtn = document.createElement("button");
             bookReadBtn.classList.add("bookRead");
 
             let deleteBookBtn = document.createElement("button");
             deleteBookBtn.classList.add("removeBtn");
             deleteBookBtn.innerText = "test";
-            deleteBookBtn.setAttribute("bookId", myLibrary.length-1);
-            //deleteBookBtn.setAttribute("onclick", "deleteBook();");
+            let index = myLibrary.findIndex(x => x.title === title.value);
+            deleteBookBtn.setAttribute("bookId", index);
+            //deleteBookBtn.setAttribute("onclick", "getIndexOfClickedBook()");
 
             libraryDisplay.appendChild(bookElement);
-            bookElement.append(bookTitle, bookAuthor, bookPages, bookReadBtn, deleteBookBtn);
+            bookElement.append(bookTitle, bookAuthor, bookPages, bookRead ,bookReadBtn, deleteBookBtn);
             
             }
         } 
-        getIndexOfClickedBook();
+        
     });
 
-    
 }
 
 addBookToLibrary();
+
 
 
 
@@ -113,5 +108,48 @@ let userInput = document.querySelector("#userInput");
 let addBookBtn = document.querySelector("#addBook");
 
 addBookBtn.addEventListener("click", function(){
+    userInput.classList.toggle("hidden");
+});
+
+//read/unread button
+document.addEventListener("click", function(e){
+    if(e.target && e.target.classList == "bookRead"){
+        let titleOfBook = e.target.parentElement.firstChild.innerText;
+        let index = myLibrary.findIndex(x => x.title === titleOfBook);
+        //find the title of the book to be deleted
+        let length = e.target.parentNode.childNodes.length;
+        if(e.target.parentNode.childNodes[length-3].innerText == "Still reading"){
+            e.target.parentNode.childNodes[length-3].innerText = "Finished reading";
+            myLibrary[index].finished = true;
+        } else {
+            e.target.parentNode.childNodes[length-3].innerText = "Still reading";
+            myLibrary[index].finished = false;
+        }
+
+        //find the index of the book with this title
+       
+        
+
+    }
+});
+
+//remove button
+document.addEventListener("click", function(e){
+    if(e.target && e.target.classList == "removeBtn"){
+        
+        //find the title of the book to be deleted
+        let titleOfBook = e.target.parentElement.firstChild.innerText;
+        //find the index of the book with this title
+        let index = myLibrary.findIndex(x => x.title === titleOfBook);
+
+        //remove the book card
+        e.target.parentNode.remove();
+        //remove the book from the library array
+        myLibrary.splice(index, 1);
+    }
+});
+
+let closeAddBook = document.querySelector("#closeBtn");
+closeAddBook.addEventListener("click", function(){
     userInput.classList.toggle("hidden");
 });
