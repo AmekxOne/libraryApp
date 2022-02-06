@@ -9,7 +9,7 @@ function Book(title, author, pages, finished) {
 
 
 
-
+const libraryDisplay = document.querySelector("#libraryDisplay");
 
 function addBookToLibrary() {
     let title = document.querySelector("#title");
@@ -19,9 +19,9 @@ function addBookToLibrary() {
 
     let errorField = document.querySelector("#errorField");
 
-    let testButton = document.querySelector("#testButton");
+    let submitButton = document.querySelector("#submitButton");
 
-    testButton.addEventListener("click", function(){
+    submitButton.addEventListener("click", function(){
         
 
         //check if title is empty
@@ -55,9 +55,9 @@ function addBookToLibrary() {
         if(result < 1){
             //reset error field text
             errorField.textContent = "";
-            myLibrary.push(new Book(title.value, author.value, pages.value, true));
+            myLibrary.push(new Book(title.value, author.value, pages.value, finished.value));
 
-            let libraryDisplay = document.querySelector("#libraryDisplay");
+            
         
             let bookElement = document.createElement("div");
             bookElement.classList.add("testDisplay");
@@ -84,7 +84,7 @@ function addBookToLibrary() {
 
             let deleteBookBtn = document.createElement("button");
             deleteBookBtn.classList.add("removeBtn");
-            deleteBookBtn.innerText = "test";
+            deleteBookBtn.innerText = "Delete book";
             let index = myLibrary.findIndex(x => x.title === title.value);
             deleteBookBtn.setAttribute("bookId", index);
             //deleteBookBtn.setAttribute("onclick", "getIndexOfClickedBook()");
@@ -104,11 +104,16 @@ addBookToLibrary();
 
 
 
-let userInput = document.querySelector("#userInput");
-let addBookBtn = document.querySelector("#addBook");
+const userInput = document.querySelector("#userInput");
+const addBookBtn = document.querySelector("#addBook");
+
+const header = document.querySelector("#header");
+const buttonLine = document.querySelector("#buttonLine");
+const userInputBg = document.querySelector("#userInputBg");
+
 
 addBookBtn.addEventListener("click", function(){
-    userInput.classList.toggle("hidden");
+    userInputBg.classList.toggle("hidden");
 });
 
 //read/unread button
@@ -151,5 +156,5 @@ document.addEventListener("click", function(e){
 
 let closeAddBook = document.querySelector("#closeBtn");
 closeAddBook.addEventListener("click", function(){
-    userInput.classList.toggle("hidden");
+    userInputBg.classList.toggle("hidden");
 });

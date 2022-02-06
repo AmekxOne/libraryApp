@@ -5,37 +5,39 @@
     </head>
     <body>
         <div id="header">
-
+            <p>libraryApp</p>
         </div>
         <div id="buttonLine">
             <button id="addBook">Add book</button>
         </div>
 
-        <div id="userInput" class="hidden">
-            <div class="close">
-                <p id="closeBtn">X</p>
+        <div id="userInputBg" class="hidden">
+            <div id="userInput">
+                <div class="close">
+                    <p id="closeBtn">X</p>
+                </div>
+                <div class="errorFieldContainer">
+                    <p id="errorField"></p>
+                </div>
+                <form onsubmit="return false">
+                    <div>
+                        <input type="text" id="title" name="title" placeholder="Title" required />
+                    </div>
+                    <div>
+                        <input type="text" id="author" name="author" placeholder="Author" required>
+                    </div>
+                    <div>
+                        <input type="number" id="pages" name="pages" placeholder="Number of pages" required>
+                    </div>
+                    <div id="checkboxRead">
+                        <p>Have you read it?</p>
+                        <input type="checkbox" id="finished" name="finished">
+                    </div>
+                    <div>
+                        <button type="submit" id="submitButton">Submit</button>
+                    </div>
+                </form>
             </div>
-            <div class="ree">
-                <p id="errorField"></p>
-            </div>
-            <form onsubmit="return false">
-                <div>
-                    <input type="text" id="title" name="title" placeholder="Title" required />
-                </div>
-                <div>
-                    <input type="text" id="author" name="author" placeholder="Author" required>
-                </div>
-                <div>
-                    <input type="number" id="pages" name="pages" placeholder="Number of pages" required>
-                </div>
-                <div id="checkboxRead">
-                    <p>Have you read it?</p>
-                    <input type="checkbox" id="finished" name="finished">
-                </div>
-                <div>
-                    <button type="submit" id="testButton">Submit</button>
-                </div>
-            </form>
         </div>
 
         <!-- this needs to be created for every object -->
